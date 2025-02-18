@@ -32,10 +32,9 @@ public class Minesweeper {
         // Task 1: Display the mine field to terminal
         for (int i = 0; i < fieldX; i++) {
             for (int j = 0; j < fieldY; j++) {
-                if(cells[fieldX][fieldY] == IS_SAFE) {
-                    
-                }
+                System.out.print(cells[i][j] == IS_MINE ? MINE_CELL : SAFE_CELL);
             }
+            System.out.println();
         }
     }
 
@@ -45,9 +44,25 @@ public class Minesweeper {
 
     void initFromFile(String mineFieldFile) {
         InputStream is = getClass().getClassLoader().getResourceAsStream(mineFieldFile);
-
-        // Task 2: Using `java.util.Scanner` to load mine field from the input stream
-        // named, `is`
-
+        // Task 2: Using java.util.Scanner to load mine field from the input stream
+        // named, isSSs
+        if (is == null) {
+            System.err.println("File not found: " + mineFieldFile);
+            return;
+        }
+        try (Scanner scanner = new Scanner(is)) {
+            fieldX = scanner.nextInt();
+            fieldY = scanner.nextInt();
+            cells = new int[fieldX][fieldY];
+            scanner.nextLine();
+            for (int i = 0; i < fieldX; i++) {
+                String line = scanner.nextLine();
+                for (int j = 0; j < fieldY; j++) {
+                    cells[i][j] = (line.charAt(j) == MINE_CELL) ? IS_MINE : IS_SAFE;
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("Error reading file: " + e.getMessage());
+        }
     }
 }
