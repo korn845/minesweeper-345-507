@@ -1,5 +1,7 @@
 package com.lab;
 
+import java.util.Scanner;
+
 /**
  * Hello world!
  */
@@ -28,5 +30,17 @@ public class App {
         Minesweeper game = initMineField();
         // Minesweeper game = initMineFieldFromFile("minefield/minefield01.txt");
         game.displayField();
-    }    
+    
+        // Test revealCell function
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            System.out.print("Enter cell coordinates to reveal (x y): ");
+            int x = scanner.nextInt();
+            int y = scanner.nextInt();
+            if (!game.revealCell(x, y)) {
+                break;
+            }
+        }
+        scanner.close();
+    } 
 }

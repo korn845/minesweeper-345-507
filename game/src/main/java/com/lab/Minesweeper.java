@@ -65,4 +65,17 @@ public class Minesweeper {
             System.err.println("Error reading file: " + e.getMessage());
         }
     }
+    public boolean revealCell(int x, int y) {
+        if (x < 0 || x >= fieldX || y < 0 || y >= fieldY) {
+            System.out.println("Invalid cell coordinates.");
+            return false;
+        }
+        if (cells[x][y] == IS_MINE) {
+            System.out.println("Boom! You hit a mine at (" + x + ", " + y + "). Game over.");
+            return false;
+        } else {
+            System.out.println("Safe cell at (" + x + ", " + y + ").");
+            return true;
+        }
+    }
 }
